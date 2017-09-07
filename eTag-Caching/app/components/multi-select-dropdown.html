@@ -1,0 +1,25 @@
+﻿<div class="form-group">
+    <label *ngIf="label">{{label}}</label>
+    <div class="form-group">
+        <div class="btn-group" *ngIf="!isReadOnly">
+            <button type="button" class="btn btn-default dropdown-toggle btn-wrap" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ selectedItemTextList }} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" *ngIf="types">
+                <li *ngIf="allOption">
+                    <a>
+                        <input type="checkbox" [disabled]="isReadOnly"  (change)="checkChange($event, allItem)" [checked]="isChecked(allItem)" value="{{allItem[pkField]}}">
+                        {{allItem[textField]}}
+                    </a>
+                </li>
+                <li *ngFor="let item of types">
+                    <a>
+                        <input type="checkbox" [disabled]="isReadOnly" (change)="checkChange($event, item)" [checked]="isChecked(item)" value="{{item[pkField]}}">
+                        {{item[textField]}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="pre-scrollable scroll-height" [innerHTML]="selectedItemTextList" *ngIf="isReadOnly"></div>
+    </div>
+</div>

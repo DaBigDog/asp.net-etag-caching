@@ -1,0 +1,32 @@
+﻿[
+  {
+    "AdminId": 1,
+    "Administrator": "Lisa Beedle",
+    "Active": true
+  },
+  {
+    "AdminId": 2,
+    "Administrator": "Larry Bell",
+    "Active": true
+  },
+  {
+    "AdminId": 3,
+    "Administrator": "Maria Muntz",
+    "Active": true
+  },
+  {
+    "AdminId": 4,
+    "Administrator": "Kelly Conway",
+    "Active": true
+  },
+  {
+    "AdminId": 5,
+    "Administrator": "Lou Walt",
+    "Active": true
+  },
+  {
+    "AdminId": 6,
+    "Administrator": "Joe Martinez",
+    "Active": true
+  }
+]

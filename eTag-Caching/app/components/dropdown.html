@@ -1,0 +1,16 @@
+﻿<div class="form-group">
+    <label *ngIf="label">{{label}}</label>
+    <div class="form-group">
+        <div class="btn-group" *ngIf="!isReadOnly">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{selectedItemText}} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu pre-scrollable" *ngIf="types">
+                <li *ngFor="let item of types" role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#" (click)="!isReadOnly && selectItem(item)">{{item[textField]}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="pre-scrollable scroll-height" [innerHTML]="selectedItemText" *ngIf="isReadOnly"></div>
+    </div>
+</div>
