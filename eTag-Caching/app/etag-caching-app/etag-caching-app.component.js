@@ -16,32 +16,29 @@ var EtagCachingAppComponent = (function () {
         this.dataService = dataService;
         this.typesModel = new types_model_1.TypesModel();
         this.dataModel = new types_model_1.AppDataModel();
-        this.readOnly = false;
-        this.myAddressModel = "111 Main Street";
     }
     EtagCachingAppComponent.prototype.ngOnInit = function () {
         this.loadTypesData();
+        this.dataModel.Address = "111 Main Street";
     };
     EtagCachingAppComponent.prototype.loadTypesData = function () {
         var _this = this;
-        this.dataService.getStatesTypes().subscribe(function (data) {
+        this.dataService.getStates().subscribe(function (data) {
             _this.typesModel.StatesTypes = data;
         }, function (error) {
             console.log(error);
         });
-        this.dataService.getSubCampaignCodeTypes().subscribe(function (data) {
-            _this.typesModel.SubCampaignCodeTypes = data;
-            if (undefined === _this.dataModel.SubCampaignCodes) {
-                _this.dataModel.SubCampaignCodes = new Array();
+        this.dataService.getCampaignCode().subscribe(function (data) {
+            _this.typesModel.CampaignCodes = data;
+            if (undefined === _this.dataModel.CampaignCode) {
+                _this.dataModel.CampaignCode = new types_model_1.CampaignCodeModel();
             }
-            //              this.dataModel.SubCampaignCodes = this.typesModel.SubCampaignCodeTypes.filter(x => x.SubCampaignCodeTypeKey > 1);
         }, function (error) {
             console.log(error);
         });
-        this.dataService.getAdminTypes().subscribe(function (data) {
-            _this.typesModel.AdminTypes = data;
-            _this.dataModel.Admin = _this.typesModel.AdminTypes[0];
-            _this.dataModel.Admins = _this.dataModel.Admins.concat(_this.typesModel.AdminTypes);
+        this.dataService.getAdmins().subscribe(function (data) {
+            _this.typesModel.Administrators = data;
+            _this.dataModel.Admins = _this.dataModel.Admins.concat(_this.typesModel.Administrators.find(function (x) { return x.AdministratorId === 1; }));
         }, function (error) {
             console.log(error);
         });

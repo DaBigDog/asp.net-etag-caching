@@ -1,14 +1,9 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var AppDataModel = (function () {
     function AppDataModel() {
         this.States = new Array();
-        this.SubCampaignCodes = new Array();
         this.Admins = new Array();
+        this.Address = "";
     }
     return AppDataModel;
 }());
@@ -16,41 +11,32 @@ exports.AppDataModel = AppDataModel;
 var TypesModel = (function () {
     function TypesModel() {
         this.StatesTypes = new Array();
-        this.SubCampaignCodeTypes = new Array();
-        this.AdminTypes = new Array();
+        this.CampaignCodes = new Array();
+        this.Administrators = new Array();
     }
     return TypesModel;
 }());
 exports.TypesModel = TypesModel;
-// Abstract to force inheritance!
-var BaseTypeModel = (function () {
-    function BaseTypeModel() {
-        this.Id = 0;
-        this.ActiveFlag = false;
-    }
-    return BaseTypeModel;
-}());
-var StateTypeModel = (function () {
-    function StateTypeModel() {
+var StateModel = (function () {
+    function StateModel() {
         this.Id = 0;
     }
-    return StateTypeModel;
+    return StateModel;
 }());
-exports.StateTypeModel = StateTypeModel;
-var SubCampaignCodeTypeModel = (function (_super) {
-    __extends(SubCampaignCodeTypeModel, _super);
-    function SubCampaignCodeTypeModel() {
-        return _super !== null && _super.apply(this, arguments) || this;
+exports.StateModel = StateModel;
+var CampaignCodeModel = (function () {
+    function CampaignCodeModel() {
+        this.Active = false;
     }
-    return SubCampaignCodeTypeModel;
-}(BaseTypeModel));
-exports.SubCampaignCodeTypeModel = SubCampaignCodeTypeModel;
-var AdminTypeModel = (function () {
-    function AdminTypeModel() {
-        this.AdminId = 0;
-        this.ActiveFlag = false;
-    }
-    return AdminTypeModel;
+    return CampaignCodeModel;
 }());
-exports.AdminTypeModel = AdminTypeModel;
+exports.CampaignCodeModel = CampaignCodeModel;
+var AdministratorModel = (function () {
+    function AdministratorModel() {
+        this.AdministratorId = 0;
+        this.Active = false;
+    }
+    return AdministratorModel;
+}());
+exports.AdministratorModel = AdministratorModel;
 //# sourceMappingURL=types.model.js.map

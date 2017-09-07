@@ -14,10 +14,6 @@ export class EtagCachingAppComponent {
     public typesModel: TypesModel = new TypesModel();
     public dataModel: AppDataModel = new AppDataModel();
 
-    private readOnly: boolean = false;
-
-    private myAddressModel: string = "111 Main Street";
-
     constructor(private dataService: ApiDataService) {
         
     }
@@ -25,6 +21,8 @@ export class EtagCachingAppComponent {
 
     ngOnInit() {
         this.loadTypesData();
+
+        this.dataModel.Address = "111 Main Street";
     }
 
     private loadTypesData(): void {

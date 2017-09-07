@@ -26,22 +26,22 @@
     <form #myForm="ngForm" (ngSubmit)="logForm(myForm)">
         <div class="row">
             <div class="col-md-4">
-                <multi-select-dropdown name="states" required ngModel [types]="typesModel.StatesTypes" [selectedItems]="dataModel.States" label="States" pkField="Id" textField="StateName" (onChange)="changeItem($event)" [isReadOnly]="readOnly"></multi-select-dropdown>
-                <validation-message controlName="states" [parentForm]="myForm" message="State"></validation-message>
+                <multi-select-dropdown name="states" required ngModel [types]="typesModel.StatesTypes" [selectedItems]="dataModel.States" label="State(s)" pkField="Id" textField="StateName" (onChange)="changeItem($event)"></multi-select-dropdown>
+                <validation-message controlName="states" [parentForm]="myForm" message="State(s)"></validation-message>
             </div>
             <div class="col-md-4">
-                <multi-select-dropdown name="admins" required ngModel [types]="typesModel.AdminTypes" [selectedItems]="dataModel.Admins" label="Administrator(s)" pkField="AdminId" textField="Administrator" allOption="true" (onChange)="changeItem($event)"></multi-select-dropdown>
+                <multi-select-dropdown name="admins" required ngModel [types]="typesModel.Administrators" [selectedItems]="dataModel.Admins" label="Administrator(s)" pkField="AdministratorId" textField="Administrator" allOption="true" (onChange)="changeItem($event)"></multi-select-dropdown>
                 <validation-message controlName="admins" [parentForm]="myForm" message="Administrator(s)"></validation-message>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <input-control name="address" label="Address" required [(ngModel)]="myAddressModel" placeholderText="My Address" [isReadOnly]="readOnly"></input-control>
+                <input-control name="address" label="Address" required [(ngModel)]="dataModel.Address" placeholderText="Your Address"></input-control>
                 <validation-message controlName="address" [parentForm]="myForm" message="Address"></validation-message>
             </div>
             <div class="col-md-4">
-                <drop-down name="subCampaignCode" required ngModel [types]="typesModel.SubCampaignCodeTypes" label="Sub Campaign Code" pkField="SubCampaignCodeTypeKey" textField="ShortName" (onChange)="changeItem($event)" [isReadOnly]="readOnly"></drop-down>
-                <validation-message controlName="subCampaignCode" [parentForm]="myForm" message="Sub Campaign Code"></validation-message>
+                <drop-down name="campaignCode" required ngModel [types]="typesModel.CampaignCodes" label="Campaign Code" pkField="CampaignCodeId" textField="CampaignCode" (onChange)="changeItem($event)"></drop-down>
+                <validation-message controlName="campaignCode" [parentForm]="myForm" message="Campaign Code"></validation-message>
             </div>
         </div>
         <div class="row">
