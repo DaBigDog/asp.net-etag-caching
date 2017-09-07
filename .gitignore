@@ -286,3 +286,17 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# Angular files
+.idea
+node_modules
+jspm_packages
+npm-debug.log
+debug.log
+-app/**/*.js
+!systemjs.config.extras.js
+!systemjs.config.js
+*.js.map
+_test-output
+_temp
+.DS_Store
