@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,17 +15,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var MultiSelectDropDownComponent = MultiSelectDropDownComponent_1 = (function () {
+var base_control_value_accessor_1 = require("./base-control-value-accessor");
+var MultiSelectDropDownComponent = MultiSelectDropDownComponent_1 = (function (_super) {
+    __extends(MultiSelectDropDownComponent, _super);
     function MultiSelectDropDownComponent() {
-        this.types = new Array();
-        this.selectedItems = new Array();
-        this.allOption = false;
-        this.label = "";
-        this.pkField = "";
-        this.textField = "";
-        this.isReadOnly = false;
-        this.onChange = new core_1.EventEmitter();
-        this.propagateChange = function (_) { };
+        var _this = _super.call(this) || this;
+        _this.types = new Array();
+        _this.selectedItems = new Array();
+        _this.allOption = false;
+        _this.label = "";
+        _this.pkField = "";
+        _this.textField = "";
+        return _this;
     }
     MultiSelectDropDownComponent.prototype.ngOnInit = function () {
     };
@@ -36,16 +42,6 @@ var MultiSelectDropDownComponent = MultiSelectDropDownComponent_1 = (function ()
                 valid: false,
             },
         };
-    };
-    //**************  ControlValueAccessor Methods ****************
-    MultiSelectDropDownComponent.prototype.writeValue = function (value) {
-        console.log(value);
-    };
-    MultiSelectDropDownComponent.prototype.registerOnChange = function (fn) {
-        this.propagateChange = fn;
-    };
-    MultiSelectDropDownComponent.prototype.registerOnTouched = function (fn) { };
-    MultiSelectDropDownComponent.prototype.setDisabledState = function (isDisabled) {
     };
     //*************************************************************
     MultiSelectDropDownComponent.prototype.checkChange = function (event, item) {
@@ -73,7 +69,7 @@ var MultiSelectDropDownComponent = MultiSelectDropDownComponent_1 = (function ()
                 this.selectedItems.splice(i, 1);
             }
         }
-        this.propagateChange(this.selectedItems); // must propagate changes to the form!
+        this.onChangeCallback(this.selectedItems); // must propagate changes to the form!
         this.onChange.emit(this.selectedItems); // notify listeners of change and send new objects
         return false;
     };
@@ -123,7 +119,7 @@ var MultiSelectDropDownComponent = MultiSelectDropDownComponent_1 = (function ()
         configurable: true
     });
     return MultiSelectDropDownComponent;
-}());
+}(base_control_value_accessor_1.BaseControlValueAccessor));
 __decorate([
     core_1.Input(),
     __metadata("design:type", Array)
@@ -148,14 +144,6 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", String)
 ], MultiSelectDropDownComponent.prototype, "textField", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], MultiSelectDropDownComponent.prototype, "isReadOnly", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], MultiSelectDropDownComponent.prototype, "onChange", void 0);
 MultiSelectDropDownComponent = MultiSelectDropDownComponent_1 = __decorate([
     core_1.Component({
         selector: 'multi-select-dropdown',

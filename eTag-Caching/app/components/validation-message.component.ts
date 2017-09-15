@@ -35,4 +35,8 @@ export class ValidationMessageComponent {
         return this.parentForm.form.controls[this.controlName];
     }
 
+    private get isInvalid() : boolean {
+        return (this.control && this.control.invalid && (this.control.dirty || this.control.touched)) || (this.parentForm.submitted && this.control.invalid);
+    }
+
 }

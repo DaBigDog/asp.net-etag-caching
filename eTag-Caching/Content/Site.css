@@ -22,3 +22,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+/** validation **/
+.ng-valid[required] input, .ng-valid.required.input,
+.ng-valid[required] button, .ng-valid.required.button {
+  border-left: 5px solid #42a948;
+}
+
+.ng-invalid:not(form) input,
+.ng-invalid:not(form) button {
+  border-left: 5px solid #a94442;
+}

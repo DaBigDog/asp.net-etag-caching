@@ -1,6 +1,7 @@
 ﻿import { Component, Input, EventEmitter, forwardRef } from '@angular/core';
 import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { BaseControlValueAccessor } from './base-control-value-accessor'
 
 /********************************************************
  *  Replaces all input controls that need validation.
@@ -10,10 +11,10 @@ import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/f
     selector: 'input-control'
     , template: '<div class="form-group">' +
     '<label>{{ label }}</label>'+
-    '<input type="text" [(ngModel)]="value" spellcheck="true" placeholder="{{ placeholderText }}" class="form-control"  *ngIf="!isReadOnly"/> ' +
+    '<input type="text" [(ngModel)]="value" spellcheck="true" placeholder="{{ placeholderText }}" class="form-control" *ngIf="!isReadOnly" (blur)="onTouchedCallback($event)"/> ' +
     '<div class="pre-scrollable scroll-height" [innerHTML]="valueText" *ngIf="isReadOnly"></div>'+
     '</div>'
-    , styles: ["div.scroll-height { max- height: 100px !important; overflow-y: scroll;}"]
+    , styles: ["div.scroll-height { max-height: 100px !important; overflow-y: scroll;}"]
     , providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -23,13 +24,16 @@ import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/f
     ]
 })
 
-export class InputControlComponent implements ControlValueAccessor  {
+export class InputControlComponent extends BaseControlValueAccessor  {
 
     @Input() public innerValue: any;
 
     @Input() public label: string = "";
     @Input() public placeholderText: string = ""; // text to display
-    @Input() public isReadOnly: boolean = false; // readonly variable
+
+    constructor() {
+        super();
+    }
 
     //**************  Form Control Validation Methods ****************
 
@@ -46,23 +50,12 @@ export class InputControlComponent implements ControlValueAccessor  {
 
     //**************  ControlValueAccessor Methods ****************
 
+    // override base method
     // writes a new value to this element... ngModel value
     public writeValue(value: any) {
-        console.log(value);
         this.innerValue = value;
     }
 
-    public propagateChange = (_: any) => { };
-
-    public registerOnChange(fn: any) {
-        this.propagateChange = fn;
-    }
-
-    public registerOnTouched(fn: any) { }
-
-    public setDisabledState(isDisabled?: boolean): void {
-
-    }
 
     //*************************************************************
 
@@ -75,7 +68,7 @@ export class InputControlComponent implements ControlValueAccessor  {
     public set value(v: any) {
         if (v !== this.innerValue) {
             this.innerValue = v;
-            this.propagateChange(v);
+            this.onChangeCallback(v);
         }
     }
 

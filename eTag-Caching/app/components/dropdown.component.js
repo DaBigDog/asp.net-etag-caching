@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,15 +15,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var DropDownComponent = DropDownComponent_1 = (function () {
+var base_control_value_accessor_1 = require("./base-control-value-accessor");
+var DropDownComponent = DropDownComponent_1 = (function (_super) {
+    __extends(DropDownComponent, _super);
     function DropDownComponent() {
-        this.types = new Array();
-        this.label = "";
-        this.pkField = "";
-        this.textField = "";
-        this.isReadOnly = false;
-        this.onChange = new core_1.EventEmitter();
-        this.propagateChange = function (_) { };
+        var _this = _super.call(this) || this;
+        _this.types = new Array();
+        _this.label = "";
+        _this.pkField = "";
+        _this.textField = "";
+        return _this;
     }
     DropDownComponent.prototype.ngOnInit = function () {
     };
@@ -35,21 +41,11 @@ var DropDownComponent = DropDownComponent_1 = (function () {
             },
         };
     };
-    //**************  ControlValueAccessor Methods ****************
-    DropDownComponent.prototype.writeValue = function (value) {
-        console.log(value);
-    };
-    DropDownComponent.prototype.registerOnChange = function (fn) {
-        this.propagateChange = fn;
-    };
-    DropDownComponent.prototype.registerOnTouched = function (fn) { };
-    DropDownComponent.prototype.setDisabledState = function (isDisabled) {
-    };
     //*************************************************************
     DropDownComponent.prototype.selectItem = function (item) {
         if (!this.isReadOnly) {
             this.selectedItem = item;
-            this.propagateChange(item);
+            this.onChangeCallback(item);
             this.onChange.emit(item);
         }
         return false;
@@ -69,7 +65,7 @@ var DropDownComponent = DropDownComponent_1 = (function () {
         configurable: true
     });
     return DropDownComponent;
-}());
+}(base_control_value_accessor_1.BaseControlValueAccessor));
 __decorate([
     core_1.Input(),
     __metadata("design:type", Array)
@@ -90,14 +86,6 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", String)
 ], DropDownComponent.prototype, "textField", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], DropDownComponent.prototype, "isReadOnly", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], DropDownComponent.prototype, "onChange", void 0);
 DropDownComponent = DropDownComponent_1 = __decorate([
     core_1.Component({
         selector: 'drop-down',

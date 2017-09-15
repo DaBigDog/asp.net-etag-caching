@@ -32,6 +32,13 @@ var ValidationMessageComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ValidationMessageComponent.prototype, "isInvalid", {
+        get: function () {
+            return (this.control && this.control.invalid && (this.control.dirty || this.control.touched)) || (this.parentForm.submitted && this.control.invalid);
+        },
+        enumerable: true,
+        configurable: true
+    });
     return ValidationMessageComponent;
 }());
 __decorate([

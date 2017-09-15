@@ -21,7 +21,7 @@ export class ApiDataService {
     }
 
     public getStates(): Observable<StateModel[]> {
-        return this.http.get("app/files/states.json")
+        return this.http.get("api/state")
             .map((res: any) => res.json())
             .catch((error: Response | any, caught: Observable<any>): Observable<any> => {
                 console.log(error);
@@ -30,7 +30,7 @@ export class ApiDataService {
     }
 
     public getCampaignCode(): Observable<CampaignCodeModel[]> {
-        return this.http.get("app/files/campaign.json")
+        return this.http.get("api/campaigncode")
             .map((res: any) => res.json())
             .catch((error: Response | any, caught: Observable<any>): Observable<any> => {
                 console.log(error);
@@ -39,7 +39,7 @@ export class ApiDataService {
     }
 
     public getAdmins(): Observable<AdministratorModel[]> {
-        return this.http.get("app/files/admins.json")
+        return this.http.get("api/admin")
             .map((res: any) => res.json())
             .catch((error: Response | any, caught: Observable<any>): Observable<any> => {
                 console.log(error);

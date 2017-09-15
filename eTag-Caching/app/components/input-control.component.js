@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,15 +15,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var base_control_value_accessor_1 = require("./base-control-value-accessor");
 /********************************************************
  *  Replaces all input controls that need validation.
  ********************************************************/
-var InputControlComponent = InputControlComponent_1 = (function () {
+var InputControlComponent = InputControlComponent_1 = (function (_super) {
+    __extends(InputControlComponent, _super);
     function InputControlComponent() {
-        this.label = "";
-        this.placeholderText = ""; // text to display
-        this.isReadOnly = false; // readonly variable
-        this.propagateChange = function (_) { };
+        var _this = _super.call(this) || this;
+        _this.label = "";
+        _this.placeholderText = ""; // text to display
+        return _this;
     }
     //**************  Form Control Validation Methods ****************
     // returns null when valid else the validation object 
@@ -32,16 +39,10 @@ var InputControlComponent = InputControlComponent_1 = (function () {
         };
     };
     //**************  ControlValueAccessor Methods ****************
+    // override base method
     // writes a new value to this element... ngModel value
     InputControlComponent.prototype.writeValue = function (value) {
-        console.log(value);
         this.innerValue = value;
-    };
-    InputControlComponent.prototype.registerOnChange = function (fn) {
-        this.propagateChange = fn;
-    };
-    InputControlComponent.prototype.registerOnTouched = function (fn) { };
-    InputControlComponent.prototype.setDisabledState = function (isDisabled) {
     };
     Object.defineProperty(InputControlComponent.prototype, "value", {
         //*************************************************************
@@ -52,7 +53,7 @@ var InputControlComponent = InputControlComponent_1 = (function () {
         set: function (v) {
             if (v !== this.innerValue) {
                 this.innerValue = v;
-                this.propagateChange(v);
+                this.onChangeCallback(v);
             }
         },
         enumerable: true,
@@ -71,7 +72,7 @@ var InputControlComponent = InputControlComponent_1 = (function () {
         configurable: true
     });
     return InputControlComponent;
-}());
+}(base_control_value_accessor_1.BaseControlValueAccessor));
 __decorate([
     core_1.Input(),
     __metadata("design:type", Object)
@@ -84,19 +85,15 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", String)
 ], InputControlComponent.prototype, "placeholderText", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], InputControlComponent.prototype, "isReadOnly", void 0);
 InputControlComponent = InputControlComponent_1 = __decorate([
     core_1.Component({
         selector: 'input-control',
         template: '<div class="form-group">' +
             '<label>{{ label }}</label>' +
-            '<input type="text" [(ngModel)]="value" spellcheck="true" placeholder="{{ placeholderText }}" class="form-control"  *ngIf="!isReadOnly"/> ' +
+            '<input type="text" [(ngModel)]="value" spellcheck="true" placeholder="{{ placeholderText }}" class="form-control" *ngIf="!isReadOnly" (blur)="onTouchedCallback($event)"/> ' +
             '<div class="pre-scrollable scroll-height" [innerHTML]="valueText" *ngIf="isReadOnly"></div>' +
             '</div>',
-        styles: ["div.scroll-height { max- height: 100px !important; overflow-y: scroll;}"],
+        styles: ["div.scroll-height { max-height: 100px !important; overflow-y: scroll;}"],
         providers: [
             {
                 provide: forms_1.NG_VALUE_ACCESSOR,
@@ -104,7 +101,8 @@ InputControlComponent = InputControlComponent_1 = __decorate([
                 multi: true
             }
         ]
-    })
+    }),
+    __metadata("design:paramtypes", [])
 ], InputControlComponent);
 exports.InputControlComponent = InputControlComponent;
 var InputControlComponent_1;

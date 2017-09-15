@@ -1,7 +1,7 @@
 ﻿import { Component, Input, Output, EventEmitter, SimpleChanges, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 
-
+import { BaseControlValueAccessor } from './base-control-value-accessor'
 
 @Component({
     selector: 'multi-select-dropdown',
@@ -16,7 +16,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/f
     ]
 })
 
-export class MultiSelectDropDownComponent implements ControlValueAccessor {
+export class MultiSelectDropDownComponent extends BaseControlValueAccessor {
 
     @Input() public types: any[] = new Array<any>();
     @Input() public selectedItems: any[] = new Array<any>();
@@ -24,14 +24,10 @@ export class MultiSelectDropDownComponent implements ControlValueAccessor {
     @Input() public label: string = "";
     @Input() public pkField: string = "";
     @Input() public textField: string = "";
-    @Input() public isReadOnly: boolean = false;
-
-
-    @Output() public onChange: EventEmitter<any> = new EventEmitter<any>();
 
 
     constructor() {
-
+        super();
     }
 
     ngOnInit() {
@@ -53,24 +49,6 @@ export class MultiSelectDropDownComponent implements ControlValueAccessor {
                 valid: false,
             },
         };
-    }
-
-    //**************  ControlValueAccessor Methods ****************
-
-    public writeValue(value: any) {
-        console.log(value);
-    }
-
-    public propagateChange = (_: any) => { };
-
-    public registerOnChange(fn: any) {
-        this.propagateChange = fn;
-    }
-
-    public registerOnTouched(fn: any) { }
-
-    public setDisabledState(isDisabled?: boolean): void {
-
     }
 
     //*************************************************************
@@ -102,7 +80,7 @@ export class MultiSelectDropDownComponent implements ControlValueAccessor {
                 this.selectedItems.splice(i, 1);
             }
         }
-        this.propagateChange(this.selectedItems); // must propagate changes to the form!
+        this.onChangeCallback(this.selectedItems); // must propagate changes to the form!
         this.onChange.emit(this.selectedItems); // notify listeners of change and send new objects
 
         return false;

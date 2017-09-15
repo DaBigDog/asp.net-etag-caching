@@ -18,7 +18,7 @@ var ApiDataService = (function () {
         this.http = http;
     }
     ApiDataService.prototype.getStates = function () {
-        return this.http.get("app/files/states.json")
+        return this.http.get("api/state")
             .map(function (res) { return res.json(); })
             .catch(function (error, caught) {
             console.log(error);
@@ -26,7 +26,7 @@ var ApiDataService = (function () {
         });
     };
     ApiDataService.prototype.getCampaignCode = function () {
-        return this.http.get("app/files/campaign.json")
+        return this.http.get("api/campaigncode")
             .map(function (res) { return res.json(); })
             .catch(function (error, caught) {
             console.log(error);
@@ -34,7 +34,7 @@ var ApiDataService = (function () {
         });
     };
     ApiDataService.prototype.getAdmins = function () {
-        return this.http.get("app/files/admins.json")
+        return this.http.get("api/admin")
             .map(function (res) { return res.json(); })
             .catch(function (error, caught) {
             console.log(error);
