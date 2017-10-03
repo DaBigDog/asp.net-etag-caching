@@ -7,12 +7,14 @@ using System.Net.Http;
 using System.Web.Http;
 
 using eTag_Caching.Models;
+using eTag_Caching.Caching;
 
 namespace eTag_Caching.Controllers
 {
     public class StateController : ApiController
     {
         // GET: api/State
+        [ETagCache(CacheKey = CacheKey.STATES, ClientDuration = 60)]
         public IEnumerable<StateModel> Get()
         {
             return DataAccess.Repository.GetStates();
