@@ -5,11 +5,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
 import { EtagCachingAppComponent } from './etag-caching-app/etag-caching-app.component';
-
-import { DropDownComponent } from './components/dropdown.component'
-import { MultiSelectDropDownComponent } from './components/multi-select-dropdown.component'
-import { InputControlComponent } from './components/input-control.component'
-import { ValidationMessageComponent } from './components/validation-message.component'
+import { DataGridComponent } from './datagrid/datagrid.component';
 
 import { ApiDataService } from './services/data.service'
 
@@ -18,8 +14,7 @@ import { ApiDataService } from './services/data.service'
     imports: [BrowserModule, HttpModule, JsonpModule,
         FormsModule
     ],
-    declarations: [EtagCachingAppComponent, DropDownComponent, MultiSelectDropDownComponent, InputControlComponent
-        , ValidationMessageComponent],
+    declarations: [EtagCachingAppComponent, DataGridComponent],
     providers: [ApiDataService],
     bootstrap: [EtagCachingAppComponent]
 })

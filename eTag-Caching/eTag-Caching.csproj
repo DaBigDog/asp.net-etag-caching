@@ -149,10 +149,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\datagrid\datagrid.component.html" />
     <Content Include="app\etag-caching-app\etag-caching-app.html" />
-    <Content Include="app\components\dropdown.html" />
-    <Content Include="app\components\multi-select-dropdown.html" />
-    <Content Include="app\components\validation-message.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -214,14 +212,11 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\app.module.ts" />
-    <TypeScriptCompile Include="app\components\base-control-value-accessor.ts" />
+    <TypeScriptCompile Include="app\datagrid\datagrid.component.ts" />
     <TypeScriptCompile Include="app\etag-caching-app\etag-caching-app.component.ts" />
-    <TypeScriptCompile Include="app\components\dropdown.component.ts" />
-    <TypeScriptCompile Include="app\components\input-control.component.ts" />
-    <TypeScriptCompile Include="app\components\multi-select-dropdown.component.ts" />
-    <TypeScriptCompile Include="app\components\validation-message.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
-    <TypeScriptCompile Include="app\models\types.model.ts" />
+    <TypeScriptCompile Include="app\models\column.ts" />
+    <TypeScriptCompile Include="app\models\data.model.ts" />
     <TypeScriptCompile Include="app\services\data.service.ts" />
   </ItemGroup>
   <ItemGroup>

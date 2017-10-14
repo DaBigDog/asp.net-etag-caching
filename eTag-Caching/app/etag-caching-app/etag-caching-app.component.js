@@ -10,44 +10,96 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var data_service_1 = require("../services/data.service");
-var types_model_1 = require("../models/types.model");
+var column_1 = require("../models/column");
 var EtagCachingAppComponent = (function () {
     function EtagCachingAppComponent(dataService) {
         this.dataService = dataService;
-        this.typesModel = new types_model_1.TypesModel();
-        this.dataModel = new types_model_1.AppDataModel();
+        this.states = new Array();
+        this.stateColumns = new Array();
+        this.campaignCodes = new Array();
+        this.campaignCodeColumns = new Array();
+        this.administrators = new Array();
+        this.administratorColumns = new Array();
     }
     EtagCachingAppComponent.prototype.ngOnInit = function () {
-        this.loadTypesData();
-        this.dataModel.Address = "111 Main Street";
+        this.loadStateColumns();
+        this.loadCampaignCodeColumns();
+        this.loadAdministratorColumns();
+        this.loadData();
     };
-    EtagCachingAppComponent.prototype.loadTypesData = function () {
+    EtagCachingAppComponent.prototype.saveState = function (state) {
         var _this = this;
-        this.dataService.getStates().subscribe(function (data) {
-            _this.typesModel.StatesTypes = data;
-        }, function (error) {
-            console.log(error);
-        });
-        this.dataService.getCampaignCode().subscribe(function (data) {
-            _this.typesModel.CampaignCodes = data;
-            if (undefined === _this.dataModel.CampaignCode) {
-                _this.dataModel.CampaignCode = new types_model_1.CampaignCodeModel();
+        console.log(state);
+        this.dataService.updateState(state.Id, state).subscribe(function (data) {
+            var index = _this.states.findIndex(function (s) { return s.Id === data.Id; });
+            if (-1 < index) {
+                _this.states.splice(index, 1, data);
             }
         }, function (error) {
             console.log(error);
         });
+    };
+    EtagCachingAppComponent.prototype.loadData = function () {
+        var _this = this;
+        this.dataService.getStates().subscribe(function (data) {
+            _this.states = data;
+        }, function (error) {
+            console.log(error);
+        });
+        this.dataService.getCampaignCode().subscribe(function (data) {
+            _this.campaignCodes = data;
+        }, function (error) {
+            console.log(error);
+        });
         this.dataService.getAdmins().subscribe(function (data) {
-            _this.typesModel.Administrators = data;
-            _this.dataModel.Admins = _this.dataModel.Admins.concat(_this.typesModel.Administrators.find(function (x) { return x.AdministratorId === 1; }));
+            _this.administrators = data;
         }, function (error) {
             console.log(error);
         });
     };
-    EtagCachingAppComponent.prototype.changeItem = function (event) {
-        console.log(event);
+    EtagCachingAppComponent.prototype.loadStateColumns = function () {
+        var c1 = new column_1.Column();
+        c1.field = c1.title = "Id";
+        c1.primaryKey = true;
+        this.stateColumns.push(c1);
+        var c2 = new column_1.Column();
+        c2.field = "StateCode";
+        c2.title = "State Code";
+        c2.editable = true;
+        this.stateColumns.push(c2);
+        var c3 = new column_1.Column();
+        c3.field = "StateName";
+        c3.title = "State Name";
+        c3.editable = true;
+        this.stateColumns.push(c3);
     };
-    EtagCachingAppComponent.prototype.logForm = function (value) {
-        console.log(value);
+    EtagCachingAppComponent.prototype.loadCampaignCodeColumns = function () {
+        var c1 = new column_1.Column();
+        c1.field = c1.title = "Id";
+        c1.primaryKey = true;
+        this.campaignCodeColumns.push(c1);
+        var c2 = new column_1.Column();
+        c2.field = "StateCode";
+        c2.title = "State Code";
+        this.campaignCodeColumns.push(c2);
+        var c3 = new column_1.Column();
+        c3.field = "StateName";
+        c3.title = "State Name";
+        this.campaignCodeColumns.push(c3);
+    };
+    EtagCachingAppComponent.prototype.loadAdministratorColumns = function () {
+        var c1 = new column_1.Column();
+        c1.field = c1.title = "Id";
+        c1.primaryKey = true;
+        this.administratorColumns.push(c1);
+        var c2 = new column_1.Column();
+        c2.field = "StateCode";
+        c2.title = "State Code";
+        this.administratorColumns.push(c2);
+        var c3 = new column_1.Column();
+        c3.field = "StateName";
+        c3.title = "State Name";
+        this.administratorColumns.push(c3);
     };
     return EtagCachingAppComponent;
 }());

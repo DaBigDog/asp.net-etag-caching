@@ -10,10 +10,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
 var etag_caching_app_component_1 = require("./etag-caching-app/etag-caching-app.component");
-var dropdown_component_1 = require("./components/dropdown.component");
-var multi_select_dropdown_component_1 = require("./components/multi-select-dropdown.component");
-var input_control_component_1 = require("./components/input-control.component");
-var validation_message_component_1 = require("./components/validation-message.component");
+var datagrid_component_1 = require("./datagrid/datagrid.component");
 var data_service_1 = require("./services/data.service");
 var AppModule = (function () {
     function AppModule() {
@@ -25,8 +22,7 @@ AppModule = __decorate([
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, http_1.JsonpModule,
             forms_1.FormsModule
         ],
-        declarations: [etag_caching_app_component_1.EtagCachingAppComponent, dropdown_component_1.DropDownComponent, multi_select_dropdown_component_1.MultiSelectDropDownComponent, input_control_component_1.InputControlComponent,
-            validation_message_component_1.ValidationMessageComponent],
+        declarations: [etag_caching_app_component_1.EtagCachingAppComponent, datagrid_component_1.DataGridComponent],
         providers: [data_service_1.ApiDataService],
         bootstrap: [etag_caching_app_component_1.EtagCachingAppComponent]
     })

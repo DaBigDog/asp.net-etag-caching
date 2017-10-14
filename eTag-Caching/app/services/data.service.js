@@ -25,6 +25,14 @@ var ApiDataService = (function () {
             return error;
         });
     };
+    ApiDataService.prototype.updateState = function (id, state) {
+        return this.http.put("api/state/" + id, state)
+            .map(function (res) { return res.json(); })
+            .catch(function (error, caught) {
+            console.log(error);
+            return error;
+        });
+    };
     ApiDataService.prototype.getCampaignCode = function () {
         return this.http.get("api/campaigncode")
             .map(function (res) { return res.json(); })

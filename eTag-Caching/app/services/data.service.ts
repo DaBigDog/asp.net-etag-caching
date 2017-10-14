@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 
 import {
     StateModel, AdministratorModel, CampaignCodeModel
-} from '../models/types.model';
+} from '../models/data.model';
 
 
 
@@ -28,6 +28,18 @@ export class ApiDataService {
                 return error;
             });
     }
+
+    public updateState(id: number, state: StateModel): Observable<StateModel> {
+
+        return this.http.put("api/state/" + id, state)
+            .map((res: any) => res.json())
+            .catch((error: Response | any, caught: Observable<any>): Observable<any> => {
+                console.log(error);
+                return error;
+            });
+    }
+
+
 
     public getCampaignCode(): Observable<CampaignCodeModel[]> {
         return this.http.get("api/campaigncode")

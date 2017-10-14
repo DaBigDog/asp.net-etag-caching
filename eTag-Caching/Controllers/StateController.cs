@@ -27,18 +27,31 @@ namespace eTag_Caching.Controllers
         }
 
         // POST: api/State
-        public void Post([FromBody]string value)
+        public void Post([FromBody]StateModel value)
         {
+
+
+            // remove from cache when an item is inserted
+            CacheManager.Instance.Remove(CacheKey.STATES);
         }
 
         // PUT: api/State/5
-        public void Put(int id, [FromBody]string value)
+        public StateModel Put(int id, [FromBody]StateModel value)
         {
+
+
+            // remove from cache when an item is updated
+            CacheManager.Instance.Remove(CacheKey.STATES);
+            return value;
         }
 
         // DELETE: api/State/5
         public void Delete(int id)
         {
+
+
+            // remove from cache when an item is deleted
+            CacheManager.Instance.Remove(CacheKey.STATES);
         }
     }
 }
