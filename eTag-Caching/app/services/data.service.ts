@@ -22,40 +22,45 @@ export class ApiDataService {
 
     public getStates(): Observable<StateModel[]> {
         return this.http.get("api/state")
-            .map((res: any) => res.json())
-            .catch((error: Response | any, caught: Observable<any>): Observable<any> => {
-                console.log(error);
-                return error;
-            });
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
     }
 
     public updateState(id: number, state: StateModel): Observable<StateModel> {
 
         return this.http.put("api/state/" + id, state)
-            .map((res: any) => res.json())
-            .catch((error: Response | any, caught: Observable<any>): Observable<any> => {
-                console.log(error);
-                return error;
-            });
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
     }
 
 
 
     public getCampaignCode(): Observable<CampaignCodeModel[]> {
         return this.http.get("api/campaigncode")
-            .map((res: any) => res.json())
-            .catch((error: Response | any, caught: Observable<any>): Observable<any> => {
-                console.log(error);
-                return error;
-            });
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
     }
 
     public getAdmins(): Observable<AdministratorModel[]> {
         return this.http.get("api/admin")
-            .map((res: any) => res.json())
-            .catch((error: Response | any, caught: Observable<any>): Observable<any> => {
-                console.log(error);
-                return error;
-            });
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
     }
+
+
+
+
+
+    private extractData(res: Response) {
+        let body = res.json();
+        console.log(body);
+        return body;
+    }
+
+    private handleErrorObservable(error: Response | any) {
+        console.log(error);
+        console.error(error.message || error);
+        return Observable.throw(error.message || error);
+    }
+
 }

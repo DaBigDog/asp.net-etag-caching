@@ -15,12 +15,6 @@ export class EtagCachingAppComponent {
     private states: Array<StateModel> = new Array<StateModel>();
     private stateColumns: Array<Column> = new Array<Column>();
 
-    private campaignCodes: Array<CampaignCodeModel> = new Array<CampaignCodeModel>();
-    private campaignCodeColumns: Array<Column> = new Array<Column>();
-
-    private administrators: Array<AdministratorModel> = new Array<AdministratorModel>();
-    private administratorColumns: Array<Column> = new Array<Column>();
-
     constructor(private dataService: ApiDataService) {
         
     }
@@ -28,9 +22,7 @@ export class EtagCachingAppComponent {
 
     ngOnInit() {
         this.loadStateColumns();
-        this.loadCampaignCodeColumns();
-        this.loadAdministratorColumns();
-        this.loadData();
+        this.loadStateData();
     }
 
 
@@ -39,10 +31,12 @@ export class EtagCachingAppComponent {
         this.dataService.updateState(state.Id, state).subscribe(
             data => { // success
 
-                let index = this.states.findIndex(s => s.Id === data.Id);
+                let index = this.states.findIndex(s => s.Id === state.Id);
                 if (-1 < index) {
-                    this.states.splice(index, 1, data);
+                    this.states.splice(index, 1, state);
                 }
+
+                // now we'll reload the page and see the eTag has changed!
 
             },
             error => { // error
@@ -52,7 +46,7 @@ export class EtagCachingAppComponent {
     }
 
 
-    private loadData(): void {
+    private loadStateData(): void {
 
 
         this.dataService.getStates().subscribe(
@@ -63,23 +57,6 @@ export class EtagCachingAppComponent {
                 console.log(error);
             });
 
-
-        this.dataService.getCampaignCode().subscribe(
-            data => { // success
-                this.campaignCodes = data;
-
-            },
-            error => { // error
-                console.log(error);
-            });
-
-        this.dataService.getAdmins().subscribe(
-            data => { // success
-                this.administrators = data;
-            },
-            error => { // error
-                console.log(error);
-            });
     }
 
     private loadStateColumns(): void {
@@ -101,38 +78,5 @@ export class EtagCachingAppComponent {
         this.stateColumns.push(c3);
     }
 
-    private loadCampaignCodeColumns(): void {
-        let c1: Column = new Column();
-        c1.field = c1.title = "Id";
-        c1.primaryKey = true;
-        this.campaignCodeColumns.push(c1);
-
-        let c2: Column = new Column();
-        c2.field = "StateCode";
-        c2.title = "State Code";
-        this.campaignCodeColumns.push(c2);
-
-        let c3: Column = new Column();
-        c3.field = "StateName";
-        c3.title = "State Name";
-        this.campaignCodeColumns.push(c3);
-    }
-
-    private loadAdministratorColumns(): void {
-        let c1: Column = new Column();
-        c1.field = c1.title = "Id";
-        c1.primaryKey = true;
-        this.administratorColumns.push(c1);
-
-        let c2: Column = new Column();
-        c2.field = "StateCode";
-        c2.title = "State Code";
-        this.administratorColumns.push(c2);
-
-        let c3: Column = new Column();
-        c3.field = "StateName";
-        c3.title = "State Name";
-        this.administratorColumns.push(c3);
-    }
 
 }
