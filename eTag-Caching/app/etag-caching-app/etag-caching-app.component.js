@@ -28,8 +28,7 @@ var EtagCachingAppComponent = (function () {
             if (-1 < index) {
                 _this.states.splice(index, 1, state);
             }
-            // now we'll reload the states to prove the eTag has changed!
-            _this.loadStateData();
+            // now we'll reload the page and see the eTag has changed!
         }, function (error) {
             console.log(error);
         });
