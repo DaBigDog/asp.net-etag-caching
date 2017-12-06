@@ -1,0 +1,22 @@
+﻿[
+  {
+    "CampaignCodeId": 1,
+    "CampaignCode": "90070",
+    "Active": true
+  },
+  {
+    "CampaignCodeId": 2,
+    "CampaignCode": "98941",
+    "Active": true
+  },
+  {
+    "CampaignCodeId": 3,
+    "CampaignCode": "88556",
+    "Active": true
+  },
+  {
+    "CampaignCodeId": 4,
+    "CampaignCode": "78910",
+    "Active": true
+  }
+]
