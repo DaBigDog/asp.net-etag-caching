@@ -50,7 +50,7 @@ namespace eTag_Caching.Caching
 
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
-            if (actionExecutedContext.Request.Method == HttpMethod.Get)
+            if (actionExecutedContext.Request.Method == HttpMethod.Get && actionExecutedContext.Response.IsSuccessStatusCode)
             {
                 if (this.CacheKey != CacheKey.NO_CACHE)
                 {
